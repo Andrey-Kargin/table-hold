@@ -6,9 +6,12 @@ function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ring = ringRef.current;
-    const dot = dotRef.current;
-    if (!ring || !dot) return;
+    const ringEl = ringRef.current;
+    const dotEl = dotRef.current;
+    if (!ringEl || !dotEl) return;
+
+    const ringNode: HTMLDivElement = ringEl;
+    const dotNode: HTMLDivElement = dotEl;
 
     const mobile = window.matchMedia(
       "(max-width: 900px), (hover: none), (pointer: coarse)"
@@ -24,8 +27,8 @@ function CustomCursor() {
 
     function hideForPicker() {
       pickerOpen = true;
-      ring.classList.remove(styles.visible);
-      dot.classList.remove(styles.visible);
+      ringNode.classList.remove(styles.visible);
+      dotNode.classList.remove(styles.visible);
       document.documentElement.classList.add("native-pointer");
     }
 
@@ -33,8 +36,8 @@ function CustomCursor() {
       pickerOpen = false;
       document.documentElement.classList.remove("native-pointer");
       if (started) {
-        ring.classList.add(styles.visible);
-        dot.classList.add(styles.visible);
+        ringNode.classList.add(styles.visible);
+        dotNode.classList.add(styles.visible);
       }
     }
 
@@ -54,15 +57,15 @@ function CustomCursor() {
         ringPos.y = mouse.y;
         dotPos.x = mouse.x;
         dotPos.y = mouse.y;
-        ring.classList.add(styles.visible);
-        dot.classList.add(styles.visible);
+        ringNode.classList.add(styles.visible);
+        dotNode.classList.add(styles.visible);
       }
 
       const target = e.target as HTMLElement | null;
       const hover = Boolean(
         target?.closest("a, button, select, input, label, [data-option]")
       );
-      ring.dataset.variant = hover ? "hover" : "default";
+      ringNode.dataset.variant = hover ? "hover" : "default";
     }
 
     function onPointerDown(e: PointerEvent) {
@@ -83,8 +86,8 @@ function CustomCursor() {
       dotPos.x += (mouse.x - dotPos.x) * 0.38;
       dotPos.y += (mouse.y - dotPos.y) * 0.38;
 
-      ring.style.transform = `translate(${ringPos.x}px, ${ringPos.y}px) translate(-50%, -50%)`;
-      dot.style.transform = `translate(${dotPos.x}px, ${dotPos.y}px) translate(-50%, -50%)`;
+      ringNode.style.transform = `translate(${ringPos.x}px, ${ringPos.y}px) translate(-50%, -50%)`;
+      dotNode.style.transform = `translate(${dotPos.x}px, ${dotPos.y}px) translate(-50%, -50%)`;
       raf = requestAnimationFrame(loop);
     }
 
