@@ -1,0 +1,65 @@
+.ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #a09b91;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  mix-blend-mode: difference;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  will-change: transform;
+  transition:
+    width 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    mix-blend-mode 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.2s ease;
+}
+
+.ring[data-variant="default"] {
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border-color: #a09b91;
+}
+
+.ring[data-variant="hover"] {
+  width: 64px;
+  height: 64px;
+  border-color: #d4892a;
+  background: rgba(232, 184, 96, 0.12);
+  mix-blend-mode: normal;
+}
+
+.dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background: #e8b860;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10001;
+  opacity: 0;
+  will-change: transform;
+  transition: opacity 0.2s ease;
+}
+
+.visible {
+  opacity: 1;
+}
+
+@media (max-width: 900px), (hover: none), (pointer: coarse) {
+  .ring,
+  .dot {
+    display: none;
+  }
+}
